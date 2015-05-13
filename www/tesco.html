@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+       <link href="css/starter-template.css" rel="stylesheet">
+       <!--  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css"> -->
+        <script src="js/bootstrap.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.css">
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <link rel="stylesheet" href="css/bootstrap-theme.css">
+        <link rel="stylesheet" href="css/buttons.css">
+        <link rel="stylesheet" href="font-awesome-4.3.0/css/font-awesome.min.css">
+        <script type="text/javascript" src="js/barcodescanner.js"></script>
+        <script>
+        function ScannerOn()
+        {
+            cordova.plugins.barcodeScanner.scan(
+          function (result) {
+              alert("iGST got a barcode\n" +
+                    "Result: " + result.text + "\n" +
+                    "Format: " + result.format);
+            var textValue = result.text;
+            window.localStorage.setItem('key',textValue);
+            valueResult(textValue);
+      }, 
+      function (error) {
+              alert("Scanning failed: " + error);
+          }
+          );
+        }
+        </script>
+        <script>
+        function valueResult(textValue){
+            if(textValue != null){
+             window.location.replace("result.html");
+         }
+         else
+          window.location.replace("tesco.html");
+            // app.exitApp();
+        }
+        </script>
+
+        <title>iGST</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">iGST</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="trolley.html">Trolley</a></li>
+            <li><a href="#contact">Promotions</a></li>
+            <li><a href="history_home.html">History</a></li>
+            <li><a href="gst_info.html">GST info</a></li>
+            <li><a href="#contact">Settings</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div>
+      <div class="container">
+        <img src="img/tesco-banner.jpg" class="img-responsive" alt="banner-tesco" width="304" height="236" align="center"> 
+        <br>
+      </div>
+       <style>
+            .carousel-inner > .item > img,
+            .carousel-inner > .item > a > img {
+                width: 70%;
+                margin: auto;
+            }
+            </style>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+      </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+          <div class="item active">
+            <img src="img/1.jpg" alt="Chania" width="460" height="345">
+          </div>
+
+          <div class="item">
+            <img src="img/tesco-ad.jpg" alt="Chania" width="460" height="345">
+          </div>
+        
+          <div class="item">
+            <img src="img/tesco-ad-2.jpg" alt="Flower" width="460" height="345">
+          </div>
+
+          <div class="item">
+            <img src="img/tesco-ad-3.jpg" alt="Flower" width="460" height="345">
+          </div>
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+    </a>
+  </div>
+  <br>
+    </div>
+
+  <br>
+  <div class="starter-template">
+            <p class="lead">This is a template product. All production is not under licence or contract. <br>
+                Development of this template are all free.</p>
+            <button onclick="ScannerOn()" class="pure-button">
+              <i class="fa fa-barcode"></i>
+            Start Scanning
+            </button>
+      <br><br>
+      <p>
+<!--             <button class="pure-button">
+                <i class="fa fa-cog"></i>
+                Settings
+            </button> -->
+    </p>
+              </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted" align="center">Copyright by iGST </p>
+      </div>
+    </footer>
+    <script type="text/javascript" src="cordova.js"></script>
+         <script type="text/javascript" src="js/index.js"></script>
+          <link href="css/sticky-footer-navbar.css" rel="stylesheet">
+          <script src="js/bootstrap.min.js"></script>
+         <script src="js/jquery-1.11.2.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+
+    </body>
+</html>

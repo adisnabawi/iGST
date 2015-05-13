@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+       <!--  <link rel="stylesheet" type="text/css" href="css/index.css" /> -->
+       <link href="css/starter-template.css" rel="stylesheet">
+       <!--  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css"> -->
+        <script src="js/bootstrap.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/json2.js"></script>
+        <script src="js/jstorage.js"></script>
+        <!-- <script src= "js/angular.min.js"></script>
+         <script src= "js/ngStorage.min.js"></script> -->
+        <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.css">
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <link rel="stylesheet" href="css/bootstrap-theme.css">
+        <link rel="stylesheet" href="css/buttons.css">
+        <link rel="stylesheet" href="font-awesome-4.3.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="js/barcodescanner.js"></script>
+    <script type="text/javascript">
+    var totalP = 0.00;
+    </script>
+     <script>
+            var result_date_id = localStorage.getItem('date_id_data');
+            var drawTable = result_date_id;
+      </script>
+    </head>
+    <body>
+      <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">iGST</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="trolley.html">Trolley</a></li>
+            <li><a href="#contact">Promotions</a></li>
+            <li class="active"><a href="history_home.html">History</a></li>
+            <li><a href="gst_info.html">GST info</a></li>
+            <li><a href="#contact">Settings</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+     <!-- <div class="container"> -->
+      <div id="history_cart" name="history_cart">
+       </div>
+       <!-- <div class="container">
+        <button onclick="drawList()" style="float: right;" class="pure-button"><i class="fa fa-refresh"></i></button>
+      </div> -->
+        <!-- <h3 id="total" class="label label-warning" align="right">No History</h3> -->
+      <!-- </div> -->
+
+      </script>
+
+      <script type="text/javascript">
+      var idLabel = result_date_id;
+      idLab = idLabel.replace(/[^\d]/g, '');
+      var d = new Date(Number(idLab));
+      idLabel2 =  d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
+      db = openDatabase('myStore', '1.0', 'Store database', 2 * 1024 * 1024);
+      db.transaction(function (tx) {
+      var x = tx.executeSql('SELECT * FROM ' + result_date_id , [], function (tx, results){
+      var len = results.rows.length, i;
+       for (i = 0; i < len; i++){
+         msg = "<p>" + results.rows.item(i).log + "<br></p>";
+        var row = results.rows.item(i);
+        var id = row["id"];
+      if(id!= 'undefined'){
+        var drawListData = '<div class="panel panel-default" ><div class="panel-body" id="cart" name="history_cart"><img src="img/orange-database.png" width="60" height="40">&nbsp &nbsp'+ idLabel2 +' <button id= "'+ result_date_id +'" onclick="displayData(this.id)" style="float: right;" class="pure-button"><i class="fa fa-file-text-o"></i></button>' + 
+        '<br><button id= "'+ result_date_id +'"onclick="deleteOne(this.id)" style="float: right;" class="pure-button"><i class="fa fa-times"></i></button></div></div>';
+        document.querySelector('#history_cart').innerHTML += drawListData;
+        //document.getElementById("history_cart").innerHTML = drawListData;
+        //drawTable = "no data";
+      }
+      else
+      {
+          document.getElementById("history_cart").innerHTML = "";
+      }
+    }
+      }, null);
+      });
+
+                </script>
+
+      <!-- <script type="text/javascript">
+      // function drawList(){
+      //   document.querySelector('#history_cart').innerHTML += drawListData;
+      // }
+      // </script>
+    -->
+
+      <div class="container">
+        <br><br>
+
+       <!--  <button onclick="deleteData()" style='float: right; margin-right: 3px;' class="pure-button" >
+          <i class="fa fa-trash"></i>
+          Delete All </button>&nbsp<br><br>
+      </div> -->
+  </div>
+
+  <script>
+  function deleteOne(clicked_id){
+   alert("iGST deleting your data");
+   localStorage.removeItem('date_id_data');
+   db = openDatabase('myStore', '1.0', 'Store database', 2 * 1024 * 1024);
+  db.transaction(function (tx) {
+  tx.executeSql('DROP TABLE ' + clicked_id);
+  });
+   document.getElementById("history_cart").innerHTML = "";
+  window.location.reload();
+  }
+  </script>
+
+  <script>
+  function displayData(clicked_id_show){
+   db = openDatabase('myStore', '1.0', 'Store database', 2 * 1024 * 1024);
+  db.transaction(function (tx) {
+  var result = tx.executeSql('SELECT * FROM ' + clicked_id_show , [], function (tx, results) {
+  //document.getElementById("history_cart").innerHTML = result;
+  var len = results.rows.length, i;
+  for (i = 0; i < len; i++){
+         msg = "<p>" + results.rows.item(i).log + "<br></p>";
+        var row = results.rows.item(i);
+        var id = row["id"];
+        if(row["gst"] == "yes"){
+          var price = parseFloat(row["price"]);
+          var total = (price*(106/100));
+        dataResult = '<div class="panel panel-default" ><div class="panel-body" id="history_cart" name="history_cart"><p><img src="' + row["display"] + '" width="60" height="40"> <b>Product:</b>'+ row["name"] +' <b> Price:</b> RM'+ row["price"]+' <h1 class="label label-danger">GST</h1> &nbsp; &nbsp; &nbsp; &nbsp;<b>Price after GST:</b> RM'+ total.toFixed(2) +' </p><br>' + '</div></div><div id="total" align="center"></div>';
+         }
+         else
+         {
+          total = parseFloat(row["price"]);
+          dataResult = '<div class="panel panel-default" ><div class="panel-body" id="history_cart" name="history_cart"><p><img src="' + row["display"] + '" width="60" height="40"> <b>Product: </b>'+ row["name"] +'<b> Price:</b> RM'+ row["price"] + ' <h3 class="label label-success">No GST</h3> </p><br>' + '</div></div><div id="total" align="center"></div>';
+         }
+
+         document.getElementById('history_cart').innerHTML +=  dataResult;
+         document.getElementById(clicked_id_show).disabled = 'true';
+        
+        totalP = totalP + total;
+        document.getElementById("total").innerHTML = 'Total: RM ' + totalP.toFixed(2) + '<br><br><button onclick="refresh()"><i class="fa fa-times-circle"></i> Close</button>';
+       }
+ }, null);
+});
+  }
+  </script>
+
+  <script type="text/javascript">
+  function refresh(){
+          window.location.reload();
+        }
+  </script>
+
+  <!-- <script>
+  // function deleteData(){
+  // db = openDatabase('myStore', '1.0', 'Store database', 2 * 1024 * 1024);
+  // db.transaction(function (tx) {
+  // tx.executeSql('DROP TABLE storeProduct');
+  // });
+  //  alert("iGST deleting your data");
+  // window.location.replace("trolley.html");
+  // }
+  </script> -->
+  </div>
+
+
+
+        <footer class="footer">
+      <div class="container">
+        <p class="text-muted" align="center">Copyright by iGST </p>
+      </div>
+    </footer>
+    <script type="text/javascript" src="cordova.js"></script>
+         <script type="text/javascript" src="js/index.js"></script>
+          <link href="css/sticky-footer-navbar.css" rel="stylesheet">
+           <script src="js/bootstrap.min.js"></script>
+         <script src="js/jquery-1.11.2.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script
+
+    </body>
+</html>

@@ -1,0 +1,23 @@
+[
+{
+"product-id" : "adis",
+"display": "http://www.latiendagreece.com/wp-content/uploads/Product_Images_550x364_milo1.jpg",
+"product-name": "MILO",
+"product-price": "3.00",
+"gst" : "yes"
+},
+{
+"product-id" : "adis1",
+"display": "http://www.mgmtfunda.com/wp-content/uploads/2010/09/ManagementFunda11.jpg",
+"product-name": "Horlick",
+"product-price": "2.00",
+"gst" : "yes"
+},
+{
+"product-id" : "adis2",
+"display": "http://aecfashion.com/wp-content/uploads/2014/02/adidas-high-tops-h30c5vnp.jpg",
+"product-name": "Adidas",
+"product-price": "300.00",
+"gst" : "no"
+}
+]

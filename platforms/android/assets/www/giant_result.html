@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+       <!--  <link rel="stylesheet" type="text/css" href="css/index.css" /> -->
+       <link href="css/starter-template.css" rel="stylesheet">
+       <!--  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css"> -->
+        <script src="js/bootstrap.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+        <script src="js/json2.js"></script>
+        <script src="js/jstorage.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.css">
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <link rel="stylesheet" href="css/bootstrap-theme.css">
+        <link rel="stylesheet" href="css/buttons.css">
+        <link rel="stylesheet" href="font-awesome-4.3.0/css/font-awesome.min.css">
+  <!--   <script type="text/javascript" src="js/barcodescanner.js"></script> -->
+    <script>
+            var result_key = localStorage.getItem('key');
+            </script>
+    </head>
+    <body>
+      <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">iGST</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="trolley.html">Trolley</a></li>
+            <li><a href="#contact">Promotions</a></li>
+            <li><a href="history_home.html">History</a></li>
+            <li><a href="gst_info.html">GST info</a></li>
+            <li><a href="#contact">Settings</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+      <table class="table table-striped">
+  <tr> <h3 align="center">Product <span class="label label-default">Details</span></h3> </tr>
+  <td> <div class="container">
+      <div id="test" align="center"></div>
+    </td>
+</table>
+     
+    <style>
+
+th {
+    padding: 5px;
+    text-align: center;    
+}
+</style>
+<!--       <div class="starter-template">  -->  
+         <script>
+              var xmlhttp = new XMLHttpRequest();
+              var url = "https://api.myjson.com/bins/5bdvx";
+              xmlhttp.onreadystatechange = function() {
+              if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+              var myArr = JSON.parse(xmlhttp.responseText);
+              myFunction(myArr);
+              }
+          }
+          xmlhttp.open("GET", url, true);
+          xmlhttp.send();
+
+          function myFunction(arr) {
+              var out = "";
+              var i;
+
+              for(i = 0; i < arr.length; i++) {
+
+                if(arr[i].id == result_key)
+                {
+                   product_id = arr[i].id;
+                   product_name = arr[i].name;
+                   product_display = arr[i].display;
+                   product_price = arr[i].price;
+                   product_gst = arr[i].gst;
+                  if(arr[i].gst =="yes"){
+                  out += '<table class="table table-striped"><tr><th colspan="2" text-align="center"><img src="' + arr[i].display + '" width="294" height="180" ></th></tr> ' + 
+                  '<tr><td>Product Name</td><td> ' + 
+                  arr[i].name + '</td><tr>' + 
+                  '<tr><td>Price </td><td> ' + 
+                  'RM' +
+                   arr[i].price + '</td></tr>' + 
+                  '<tr><td> GST </td><td> <span class="label label-danger">6% Tax</span>' +
+                   '</td></tr></table>' 
+                  ;             
+                } else {
+                    out += '<table class="table table-striped"><tr><th colspan="2" text-align="center"><img src="' + arr[i].display + '" width="304" height="220" ></th></tr> ' + 
+                  '<tr><td>Product Name</td><td> ' + 
+                  arr[i].name + '</td><tr>' + 
+                  '<tr><td>Price </td><td> ' + 
+                  'RM' +
+                   arr[i].price + '</td></tr>' + 
+                  '<tr><td> GST </td><td> <span class="label label-success">No GST</span>' +
+                   '</td></tr></table>' 
+                  }
+                }
+              }
+              document.getElementById("test").innerHTML = out;
+          }
+</script>
+<div class="container" align="center">
+                     <button class="pure-button" align="center" onclick="storeData()">
+                    <i class="fa fa-shopping-cart fa-lg"></i>
+                    Checkout
+                    </button>
+                  </div>
+                  <div>
+                    <br>
+                  </div>
+                    <script>
+                    function storeData(){ 
+                     if(product_id !=null){
+                      var db = openDatabase('myStore', '1.0', 'Store database', 2 * 1024 * 1024);
+                      db.transaction(function (tx) {
+                      tx.executeSql('CREATE TABLE IF NOT EXISTS storeProduct (id unique, name, display, price,gst)');
+                      tx.executeSql('INSERT INTO storeProduct (id, name, display, price, gst) VALUES ("'+ product_id + '", "' +product_name +'","'+ product_display + '","'+ product_price +'","' + product_gst +'")');
+                      });
+
+                      alert("iGST save your product"); 
+                      window.location.replace("trolley.html");
+                    }
+                     else
+                      {alert("iGST can't find your product"); }
+
+              } 
+              </script>
+
+        </div>
+      </div>
+
+        <footer class="footer">
+      <div class="container">
+        <p class="text-muted" align="center">Copyright by iGST </p>
+      </div>
+    </footer>
+    <script type="text/javascript" src="cordova.js"></script>
+         <script type="text/javascript" src="js/index.js"></script>
+          <link href="css/sticky-footer-navbar.css" rel="stylesheet">
+           <script src="js/bootstrap.min.js"></script>
+         <script src="js/jquery-1.11.2.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script
+
+    </body>
+</html>
